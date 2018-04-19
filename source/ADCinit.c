@@ -29,7 +29,7 @@
 #define TOLERANCIAincrementoRAPIDOhisteresis	13		// +20°
 #define TOLERANCIAdecrementoNORMALhisteresis	8		// -5°
 #define TOLERANCIAdecrementoRAPIDOhisteresis	13		// -10°
-#define VALORDETEMPERATURAbase			28		// A 30°
+#define VALORDETEMPERATURAbase			27		// A 30°
 #define TOPEINCREMENTOnormal		VALORDETEMPERATURAbase + TOLERANCIAincrementoNORMAL
 #define TOPEINCREMENTOrapido		VALORDETEMPERATURAbase + TOLERANCIAincrementoRAPIDO
 #define TOPEDECREMENTOnormal		VALORDETEMPERATURAbase - TOLERANCIAdecrementoNORMAL
