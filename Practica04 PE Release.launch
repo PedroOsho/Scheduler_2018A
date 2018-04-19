@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="com.pemicro.debug.gdbjtag.pne.launchConfigurationType">
-<stringAttribute key="com.crt.ctrlcenter.OFSemuDetails" value="PEMicroF75E7E7D"/>
-<stringAttribute key="com.crt.ctrlcenter.serialNumber" value="USB1 - OpenSDA (F75E7E7D)"/>
+<stringAttribute key="com.crt.ctrlcenter.OFSemuDetails" value="PEMicroA28B7E1C"/>
+<booleanAttribute key="com.crt.ctrlcenter.saveState" value="true"/>
+<stringAttribute key="com.crt.ctrlcenter.serialNumber" value="USB1 - OpenSDA (A28B7E1C)"/>
 <listAttribute key="com.pemicro.debug.gdbjtag.pne.ELVES"/>
 <intAttribute key="com.pemicro.debug.gdbjtag.pne.NUMBER_ELVES" value="0"/>
 <stringAttribute key="com.pemicro.debug.gdbjtag.pne.PE.DEVICE_NAME" value="NXP_KL2x_KL25Z128M4"/>

@@ -45,9 +45,9 @@ PinsProfile:
 
 #define PIN1_IDX					1u   	/*!< Pin number for pin 1 in a port */
 #define PIN2_IDX					2u   	/*!< Pin number for pin 2 in a port */
-#define PIN18_IDX					18u		/*!< Pin number for pin 20 in a port */
+#define PIN23_IDX					23u		/*!< Pin number for pin 20 in a port */
 #define PIN20_IDX					20u		/*!< Pin number for pin 20 in a port */
-#define PIN19_IDX					19u   	/*!< Pin number for pin 18 in a port */
+#define PIN22_IDX					22u   	/*!< Pin number for pin 18 in a port */
 #define SOPT5_UART0RXSRC_UART_RX	0x00u   /*!< UART0 receive data source select: UART0_RX pin */
 #define SOPT5_UART0TXSRC_UART_TX	0x00u   /*!< UART0 transmit data source select: UART0_TX pin */
 
@@ -76,8 +76,8 @@ void BOARD_InitPins(void) {
   PORT_SetPinMux(PORTA, PIN1_IDX, kPORT_MuxAlt2);				/* PORTA1 (pin 27) is configured as UART0_RX */
   PORT_SetPinMux(PORTA, PIN2_IDX, kPORT_MuxAlt2);				/* PORTA2 (pin 28) is configured as UART0_TX */
 
-  PORT_SetPinMux(PORTB, PIN18_IDX, kPORT_MuxAlt3);				/* PORTB18 (pin 53) is configured as TPM2_CH0 */
-  PORT_SetPinMux(PORTB, PIN19_IDX, kPORT_MuxAlt3);				/* PORTB19 (pin 54) is configured as TPM2_CH1 */
+  PORT_SetPinMux(PORTE, PIN23_IDX, kPORT_MuxAlt3);				/* PORTB18 (pin 53) is configured as TPM2_CH0 */
+  PORT_SetPinMux(PORTE, PIN22_IDX, kPORT_MuxAlt3);				/* PORTB19 (pin 54) is configured as TPM2_CH1 */
 
   PORT_SetPinMux(PORTE, PIN20_IDX, kPORT_PinDisabledOrAnalog);	/* PORTE20 (pin 13) is configured as ADC0_DP0 */
   SIM->SOPT5 = ((SIM->SOPT5 &
