@@ -21,15 +21,15 @@
 #define	CANAL0							0U
 
 // Definiciones especificas del selector de modo
-#define TOLERANCIAincrementoNORMAL				500		// +10°
-#define TOLERANCIAincrementoRAPIDO				1000		// +20°
-#define TOLERANCIAdecrementoNORMAL				500		// -5°
-#define TOLERANCIAdecrementoRAPIDO				1000		// -10°
-#define TOLERANCIAincrementoNORMALhisteresis	300		// +10°
-#define TOLERANCIAincrementoRAPIDOhisteresis	700		// +20°
-#define TOLERANCIAdecrementoNORMALhisteresis	300		// -5°
-#define TOLERANCIAdecrementoRAPIDOhisteresis	700		// -10°
-#define VALORDETEMPERATURAbase			2048		// A 30°
+#define TOLERANCIAincrementoNORMAL				10		// +10°
+#define TOLERANCIAincrementoRAPIDO				15		// +20°
+#define TOLERANCIAdecrementoNORMAL				10		// -5°
+#define TOLERANCIAdecrementoRAPIDO				15		// -10°
+#define TOLERANCIAincrementoNORMALhisteresis	8		// +10°
+#define TOLERANCIAincrementoRAPIDOhisteresis	13		// +20°
+#define TOLERANCIAdecrementoNORMALhisteresis	8		// -5°
+#define TOLERANCIAdecrementoRAPIDOhisteresis	13		// -10°
+#define VALORDETEMPERATURAbase			27		// A 30°
 #define TOPEINCREMENTOnormal		VALORDETEMPERATURAbase + TOLERANCIAincrementoNORMAL
 #define TOPEINCREMENTOrapido		VALORDETEMPERATURAbase + TOLERANCIAincrementoRAPIDO
 #define TOPEDECREMENTOnormal		VALORDETEMPERATURAbase - TOLERANCIAdecrementoNORMAL
@@ -85,8 +85,11 @@ void ADCinit_ADCconfig(void){
  * @return: unsigned 32 bits int
  */
 T_UWORD ADCinit_getADCvalue(ADC_Type *base, uint32_t channelGroup){
+	float rub_ValorAdc;
 	ADC16_SetChannelConfig(ADC_BASE, ADC_CANAL, &ADC_EstructuraConfiguraciondelCanal);
-	return base->R[channelGroup];
+	rub_ValorAdc=base->R[channelGroup];
+	rub_ValorAdc= (3.3/4095)*rub_ValorAdc*100;
+	return rub_ValorAdc;
 }
 
 void ADC_modoNormal(T_UBYTE lub_Modo){
