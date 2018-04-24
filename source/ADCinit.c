@@ -45,7 +45,7 @@ extern T_UWORD ruw_MODO;
 adc16_config_t ADC_EstructuraConfiguracion;
 adc16_channel_config_t ADC_EstructuraConfiguraciondelCanal;
 
-
+/*enumeracion con los modos y acciones */
 enum ru_ModoDeOperacion{
 	MODO_NORMAL,
 	NO_INCDEC,
@@ -58,6 +58,16 @@ enum ru_ModoDeOperacion{
 /********************* FUNCIONES/CÓDIGO ******************** */
 /*!
  * @brief Main function
+ */
+/* Funcion de configuracion inicial del ADC**
+ * configuracion de :
+ * Voltaje de referencia
+ * Fuente de Reloj
+ * Reloj sincrono/asincrono
+ * Divisor de reloj
+ * resolucion
+ * Velocidad
+ * Referencia de Voltaje
  */
 void ADCinit_ADCconfig(void){
 	ADC_EstructuraConfiguracion.referenceVoltageSource = kADC16_ReferenceVoltageSourceVref;
@@ -92,6 +102,11 @@ T_UWORD ADCinit_getADCvalue(ADC_Type *base, uint32_t channelGroup){
 	return rub_ValorAdc;
 }
 
+/*!
+ * @brief function Select operation action
+ * @param base: Operation Mode
+ * @return: void
+ */
 void ADC_modoNormal(T_UBYTE lub_Modo){
 	T_UBYTE lub_Action;
 	if(lub_Modo == MODO_NORMAL){
@@ -136,6 +151,11 @@ void ADC_modoNormal(T_UBYTE lub_Modo){
 else{}
 }
 
+/*!
+ * @brief function Select operation Mode
+ * @param base: void
+ * @return: Unsigned 32 bits int  Modo
+ */
 T_UBYTE ADC_initModo()
 {
 	T_UBYTE lub_Action;
@@ -160,6 +180,11 @@ else
 	return MODO_NORMAL;
 	}
 }
+/*!
+ * @brief function Actions in Safe Mode
+ * @param base: Modo
+ * @return: void
+ */
 
 void ADC_modoSeguro(T_UBYTE lub_Modo){
 	T_UBYTE lub_Action;
@@ -183,6 +208,11 @@ void ADC_modoSeguro(T_UBYTE lub_Modo){
 	}
 }
 
+/*!
+ * @brief function Definition of a Action operation
+ * @param base: ADC Value
+ * @return: Unsigned 32 bits int  Action operation
+ */
 T_UBYTE ADCinit_setOperationACTION(T_UWORD luw_ADC_VALUE){
 //normal
 	if(rub_LastAction == NO_INCDEC)

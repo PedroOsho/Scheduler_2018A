@@ -73,31 +73,44 @@ void PWMinit_PWMtestRoutine(void){
 	TPM_UpdatePwmDutycycle(TPM_DIRECCIONBASE, (tpm_chnl_t)TPM_NUMEROdeCANAL1, kTPM_CenterAlignedPwm,
 	                           rub_updatedDutycycle);
 }
-
+/*!
+ * @brief PWMinit_PWMset sets a value onto a PWM channel
+ */
 void PWMinit_PWMnormalDecrease(){
     TPM_UpdatePwmDutycycle(TPM_DIRECCIONBASE, (tpm_chnl_t)TPM_NUMEROdeCANAL0, kTPM_CenterAlignedPwm,
     						HALFofPOWER);
 }
-
+/*!
+ * @brief PWMinit_PWMset sets a value onto a PWM channel
+ */
 void PWMinit_PWMhighDecrease(){
     TPM_UpdatePwmDutycycle(TPM_DIRECCIONBASE, (tpm_chnl_t)TPM_NUMEROdeCANAL0, kTPM_CenterAlignedPwm,
     						FULLPOWER);
 }
-
+/*!
+ * @brief PWMinit_PWMset sets a value onto a PWM channel
+ */
 void PWMinit_PWMnormalIncrease(){
     TPM_UpdatePwmDutycycle(TPM_DIRECCIONBASE, (tpm_chnl_t)TPM_NUMEROdeCANAL1, kTPM_CenterAlignedPwm,
     						HALFofPOWER);
 }
-
+/*!
+ * @brief PWMinit_PWMset sets a value onto a PWM channel
+ */
 void PWMinit_PWMhighIncrease(){
     TPM_UpdatePwmDutycycle(TPM_DIRECCIONBASE, (tpm_chnl_t)TPM_NUMEROdeCANAL1, kTPM_CenterAlignedPwm,
     						FULLPOWER);
 }
-
+/*!
+ * @brief PWMinit_PWMset sets a value onto a PWM channel
+ */
 void PWMinit_PWMnoIncrease(){
     TPM_UpdatePwmDutycycle(TPM_DIRECCIONBASE, (tpm_chnl_t)TPM_NUMEROdeCANAL1, kTPM_CenterAlignedPwm,
     						NOPOWER);
 }
+/*!
+ * @brief PWMinit_PWMset sets a value onto a PWM channel
+ */
 void PWMinit_PWMnoDecrease(){
     TPM_UpdatePwmDutycycle(TPM_DIRECCIONBASE, (tpm_chnl_t)TPM_NUMEROdeCANAL0, kTPM_CenterAlignedPwm,
     						NOPOWER);
