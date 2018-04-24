@@ -109,44 +109,43 @@ T_UWORD ADCinit_getADCvalue(ADC_Type *base, uint32_t channelGroup){
  */
 void ADC_modoNormal(T_UBYTE lub_Modo){
 	T_UBYTE lub_Action;
+	T_UWORD luw_ADC_Val;
 	if(lub_Modo == MODO_NORMAL){
 	lub_Action=ADCinit_setOperationACTION(ADCinit_getADCvalue(ADC0, CANAL0));
-	if(lub_Action == NO_INCDEC)
-	{
-		T_UWORD luw_ADC_Val = ADCinit_getADCvalue(ADC0, CANAL0);
+	switch(lub_Modo){
+	case 1:
+		luw_ADC_Val = ADCinit_getADCvalue(ADC0, CANAL0);
 		PRINTF("modo normal %d\n", luw_ADC_Val);
 		PWMinit_PWMnoIncrease();
 		PWMinit_PWMnoDecrease();
-	}
-	else if(lub_Action == INCREMENTO_NORMAL)
-	{
-		T_UWORD luw_ADC_Val = ADCinit_getADCvalue(ADC0, CANAL0);
+		break;
+	case 2:
+		luw_ADC_Val = ADCinit_getADCvalue(ADC0, CANAL0);
 		PRINTF("modo incremento normal %d\n", luw_ADC_Val);
 		PWMinit_PWMnormalIncrease();
 		PWMinit_PWMnoDecrease();
-	}
-	else if(lub_Action == DECREMENTO_NORMAL)
-	{
-		T_UWORD luw_ADC_Val = ADCinit_getADCvalue(ADC0, CANAL0);
-		PRINTF("modo decremento normal %d\n", luw_ADC_Val);
-		PWMinit_PWMnoIncrease();
-		PWMinit_PWMnormalDecrease();
-	}
-	else if(lub_Action == DECREMENTO_RAPIDO)
-	{
-		T_UWORD luw_ADC_Val = ADCinit_getADCvalue(ADC0, CANAL0);
-		PRINTF("modo decremento rapido %d\n", luw_ADC_Val);
-		PWMinit_PWMnoIncrease();
-		PWMinit_PWMhighDecrease();
-	}
-	else if(lub_Action == INCREMENTO_RAPIDO)
-	{
-		T_UWORD luw_ADC_Val = ADCinit_getADCvalue(ADC0, CANAL0);
+		break;
+	case 3:
+		luw_ADC_Val = ADCinit_getADCvalue(ADC0, CANAL0);
 		PRINTF("modo incremento rapido %d\n", luw_ADC_Val);
 		PWMinit_PWMhighIncrease();
 		PWMinit_PWMnoDecrease();
+		break;
+	case 4:
+		luw_ADC_Val = ADCinit_getADCvalue(ADC0, CANAL0);
+		PRINTF("modo decremento normal %d\n", luw_ADC_Val);
+		PWMinit_PWMnoIncrease();
+		PWMinit_PWMnormalDecrease();
+		break;
+	case 5:
+		luw_ADC_Val = ADCinit_getADCvalue(ADC0, CANAL0);
+		PRINTF("modo decremento rapido %d\n", luw_ADC_Val);
+		PWMinit_PWMnoIncrease();
+		PWMinit_PWMhighDecrease();
+		break;
+	default:
+		break;
 	}
-	else{}
 }
 else{}
 }
@@ -214,105 +213,138 @@ void ADC_modoSeguro(T_UBYTE lub_Modo){
  * @return: Unsigned 32 bits int  Action operation
  */
 T_UBYTE ADCinit_setOperationACTION(T_UWORD luw_ADC_VALUE){
-//normal
-	if(rub_LastAction == NO_INCDEC)
-	{
+
+	switch(rub_LastAction){
+
+	case NO_INCDEC:
 		if( (luw_ADC_VALUE < TOPEINCREMENTOnormal) && (luw_ADC_VALUE > TOPEDECREMENTOnormal ))
 		{
 			rub_LastAction=NO_INCDEC;
 			return NO_INCDEC;
 		}
-	}
-	else
-	{
-		if( (luw_ADC_VALUE < TOPEINCREMENTOnormalhisteresis) && (luw_ADC_VALUE > TOPEDECREMENTOnormalhisteresis ))
-		{
-			rub_LastAction=NO_INCDEC;
-			return NO_INCDEC;
-		}
-	}
-//Incremento normal
-	if(rub_LastAction == INCREMENTO_NORMAL)
-	{
-		if( (luw_ADC_VALUE > TOPEINCREMENTOnormalhisteresis) && (luw_ADC_VALUE < TOPEINCREMENTOrapido) )
-		{
-			rub_LastAction=INCREMENTO_NORMAL;
-			return INCREMENTO_NORMAL;
-		}
-	}
-	else if(rub_LastAction == INCREMENTO_RAPIDO)
-	{
-		if( (luw_ADC_VALUE > TOPEINCREMENTOnormalhisteresis) && (luw_ADC_VALUE < TOPEINCREMENTOrapidohisteresis) )
-		{
-			rub_LastAction=INCREMENTO_NORMAL;
-			return INCREMENTO_NORMAL;
-		}
-	}
-	else
-	{
 		if( (luw_ADC_VALUE > TOPEINCREMENTOnormal) && (luw_ADC_VALUE < TOPEINCREMENTOrapido) )
 		{
 			rub_LastAction=INCREMENTO_NORMAL;
 			return INCREMENTO_NORMAL;
 		}
-	}
-//Incremento rapido
-	if(rub_LastAction == INCREMENTO_RAPIDO)
-	{
-		if(luw_ADC_VALUE > TOPEINCREMENTOrapidohisteresis)
-		{
-			rub_LastAction=INCREMENTO_RAPIDO;
-			return INCREMENTO_RAPIDO;
-		}
-	}
-	else
-	{
 		if(luw_ADC_VALUE > TOPEINCREMENTOrapido)
 		{
 			rub_LastAction=INCREMENTO_RAPIDO;
 			return INCREMENTO_RAPIDO;
 		}
-	}
-//Incremento Normal
-	if(rub_LastAction == DECREMENTO_NORMAL)
-	{
-		 if( (luw_ADC_VALUE < TOPEDECREMENTOnormalhisteresis) && (luw_ADC_VALUE > TOPEDECREMENTOrapido) )
-		 {
-			 rub_LastAction=DECREMENTO_NORMAL;
-			 return DECREMENTO_NORMAL;
-		 }
-	}
-	else if(rub_LastAction == DECREMENTO_RAPIDO)
-	{
-		if( (luw_ADC_VALUE < TOPEDECREMENTOnormalhisteresis) && (luw_ADC_VALUE > TOPEDECREMENTOrapidohisteresis) )
-		{
-			rub_LastAction=DECREMENTO_NORMAL;
-			return DECREMENTO_NORMAL;
-		}
-	}
-	else
-	{
 		if( (luw_ADC_VALUE < TOPEDECREMENTOnormal) && (luw_ADC_VALUE > TOPEDECREMENTOrapido) )
 		{
 			rub_LastAction=DECREMENTO_NORMAL;
 			return DECREMENTO_NORMAL;
 		}
-	}
-//Incremento Rapido
-	if(rub_LastAction == DECREMENTO_RAPIDO)
-	{
+		if ( luw_ADC_VALUE < TOPEDECREMENTOrapido)
+		{
+			rub_LastAction=DECREMENTO_RAPIDO;
+			return DECREMENTO_RAPIDO;
+		}
+	case INCREMENTO_NORMAL:
+		if( (luw_ADC_VALUE > TOPEINCREMENTOnormalhisteresis) && (luw_ADC_VALUE < TOPEINCREMENTOrapido) )
+		{
+			rub_LastAction=INCREMENTO_NORMAL;
+			return INCREMENTO_NORMAL;
+		}
+		if( (luw_ADC_VALUE < TOPEINCREMENTOnormalhisteresis) && (luw_ADC_VALUE > TOPEDECREMENTOnormalhisteresis ))
+		{
+			rub_LastAction=NO_INCDEC;
+			return NO_INCDEC;
+		}
+		if(luw_ADC_VALUE > TOPEINCREMENTOrapido)
+		{
+			rub_LastAction=INCREMENTO_RAPIDO;
+			return INCREMENTO_RAPIDO;
+		}
+		if( (luw_ADC_VALUE < TOPEDECREMENTOnormal) && (luw_ADC_VALUE > TOPEDECREMENTOrapido) )
+		{
+			rub_LastAction=DECREMENTO_NORMAL;
+			return DECREMENTO_NORMAL;
+		}
+		if ( luw_ADC_VALUE < TOPEDECREMENTOrapido)
+		{
+			rub_LastAction=DECREMENTO_RAPIDO;
+			return DECREMENTO_RAPIDO;
+		}
+	case INCREMENTO_RAPIDO:
+		if( (luw_ADC_VALUE > TOPEINCREMENTOnormalhisteresis) && (luw_ADC_VALUE < TOPEINCREMENTOrapidohisteresis) )
+		{
+			rub_LastAction=INCREMENTO_NORMAL;
+			return INCREMENTO_NORMAL;
+		}
+			if(luw_ADC_VALUE > TOPEINCREMENTOrapidohisteresis)
+		{
+			rub_LastAction=INCREMENTO_RAPIDO;
+			return INCREMENTO_RAPIDO;
+		}
+		if( (luw_ADC_VALUE < TOPEINCREMENTOnormalhisteresis) && (luw_ADC_VALUE > TOPEDECREMENTOnormalhisteresis ))
+		{
+			rub_LastAction=NO_INCDEC;
+			return NO_INCDEC;
+		}
+		if( (luw_ADC_VALUE < TOPEDECREMENTOnormal) && (luw_ADC_VALUE > TOPEDECREMENTOrapido) )
+		{
+			rub_LastAction=DECREMENTO_NORMAL;
+			return DECREMENTO_NORMAL;
+		}
+		if ( luw_ADC_VALUE < TOPEDECREMENTOrapido)
+		{
+			rub_LastAction=DECREMENTO_RAPIDO;
+			return DECREMENTO_RAPIDO;
+		}
+	case DECREMENTO_NORMAL:
+		 if( (luw_ADC_VALUE < TOPEDECREMENTOnormalhisteresis) && (luw_ADC_VALUE > TOPEDECREMENTOrapido) )
+		 {
+			 rub_LastAction=DECREMENTO_NORMAL;
+			 return DECREMENTO_NORMAL;
+		 }
+		if( (luw_ADC_VALUE < TOPEINCREMENTOnormalhisteresis) && (luw_ADC_VALUE > TOPEDECREMENTOnormalhisteresis ))
+		{
+			rub_LastAction=NO_INCDEC;
+			return NO_INCDEC;
+		}
+		if( (luw_ADC_VALUE > TOPEINCREMENTOnormal) && (luw_ADC_VALUE < TOPEINCREMENTOrapido) )
+		{
+			rub_LastAction=INCREMENTO_NORMAL;
+			return INCREMENTO_NORMAL;
+		}
+		if(luw_ADC_VALUE > TOPEINCREMENTOrapido)
+		{
+			rub_LastAction=INCREMENTO_RAPIDO;
+			return INCREMENTO_RAPIDO;
+		}
+		if ( luw_ADC_VALUE < TOPEDECREMENTOrapido)
+		{
+			rub_LastAction=DECREMENTO_RAPIDO;
+			return DECREMENTO_RAPIDO;
+		}
+	case DECREMENTO_RAPIDO:
+		if( (luw_ADC_VALUE < TOPEDECREMENTOnormalhisteresis) && (luw_ADC_VALUE > TOPEDECREMENTOrapidohisteresis) )
+		{
+			rub_LastAction=DECREMENTO_NORMAL;
+			return DECREMENTO_NORMAL;
+		}
 		if ( luw_ADC_VALUE < TOPEDECREMENTOrapidohisteresis)
 		{
 			rub_LastAction=DECREMENTO_RAPIDO;
 			return DECREMENTO_RAPIDO;
 		}
-	}
-	else
-	{
-		if ( luw_ADC_VALUE < TOPEDECREMENTOrapido)
+		if( (luw_ADC_VALUE < TOPEINCREMENTOnormalhisteresis) && (luw_ADC_VALUE > TOPEDECREMENTOnormalhisteresis ))
 		{
-			rub_LastAction=DECREMENTO_RAPIDO;
-			return DECREMENTO_RAPIDO;
+			rub_LastAction=NO_INCDEC;
+			return NO_INCDEC;
+		}
+		if( (luw_ADC_VALUE > TOPEINCREMENTOnormal) && (luw_ADC_VALUE < TOPEINCREMENTOrapido) )
+		{
+			rub_LastAction=INCREMENTO_NORMAL;
+			return INCREMENTO_NORMAL;
+		}
+		if(luw_ADC_VALUE > TOPEINCREMENTOrapido)
+		{
+			rub_LastAction=INCREMENTO_RAPIDO;
+			return INCREMENTO_RAPIDO;
 		}
 	}
 }
