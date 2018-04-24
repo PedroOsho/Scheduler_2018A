@@ -195,8 +195,8 @@ void ADC_modoSeguro(T_UBYTE lub_Modo){
 			{
 		T_UWORD ADC_Valor = ADCinit_getADCvalue(ADC0, CANAL0);
 		PRINTF("modo Seguro %d\n", ADC_Valor);
-		PWMinit_PWMhighIncrease();
-		PWMinit_PWMhighDecrease();
+		PWMinit_PWMnoDecrease();
+		PWMinit_PWMnoIncrease();
 			}
 		else{
 			ruw_MODO=ADC_initModo();
