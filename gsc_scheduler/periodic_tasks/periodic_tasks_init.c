@@ -28,7 +28,7 @@
 #include <gsc_scheduler/periodic_tasks/periodic_tasks_init.h>
 #include <gsc_scheduler/periodic_tasks/periodic_tasks_modules.h>
 
-#define CANAL0			0
+
 /**************************************************************
  *  Name                 : periodic_tasks_init_MclDrvs
  *  Description          : Initialize needed microcontroller drivers (pheripherals) before start application
@@ -48,8 +48,7 @@ void periodic_tasks_init_MclDrvs(void){
  *  Critical/explanation : no
  **************************************************************/
 void periodic_tasks_init_SysDrvs(void){
-	ADCinit_ADCconfig();
-	PWMinit_PWMconfig();
+
 }
 
 /**************************************************************
@@ -88,8 +87,7 @@ void periodic_tasks_init_SysDrvs(void){
  **************************************************************/
  void periodic_tasks_init_task_20tks(void)
  {
-	 T_UWORD ADC_Value = ADCinit_getADCvalue(ADC0, CANAL0);
-	 PRINTF("Primer lectura %d\n", ADC_Value);
+
  }
  
  /**************************************************************

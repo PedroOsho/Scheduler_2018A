@@ -11,8 +11,7 @@
 #include <gsc_scheduler/periodic_tasks/periodic_tasks_modules.h>
 
 /********************* DEFINICIONES ******************** */
-#define	CANAL0	0U
-T_UWORD ruw_MODO = 0u;
+
 /**************************************************************
 *  Name                 : periodic_tasks_exec_5tks
 *	ID					 : TASK_5TKS
@@ -49,7 +48,6 @@ void periodic_tasks_exec_10tks(void){
 *  Critical/explanation : no
 **************************************************************/
 void periodic_tasks_exec_20tks(void){
-	ADC_modoNormal(ruw_MODO);
 }
 
 /**************************************************************
@@ -87,7 +85,6 @@ void periodic_tasks_exec_100tks(void){
 *  Critical/explanation : no
 **************************************************************/
 void periodic_tasks_exec_200tks(void){
-	ADC_modoSeguro(ruw_MODO);
 }
 
 /**************************************************************
@@ -113,5 +110,4 @@ void periodic_tasks_exec_500tks(void) {
 *  Critical/explanation : no
 **************************************************************/
 void periodic_tasks_exec_1Mtks(void){
-	ruw_MODO=ADC_initModo();
 }
