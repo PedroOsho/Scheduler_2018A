@@ -35,7 +35,6 @@ void periodic_tasks_exec_5tks(void){
 *  Critical/explanation : no
 **************************************************************/
 void periodic_tasks_exec_10tks(void){
-	//ADC_modoNormal(MODO, ADCinit_setOperationACTION( ADCinit_getADCvalue(ADC0, CANAL0)));
 }
 
 /**************************************************************
@@ -110,4 +109,6 @@ void periodic_tasks_exec_500tks(void) {
 *  Critical/explanation : no
 **************************************************************/
 void periodic_tasks_exec_1Mtks(void){
+	sendMesaggeTx();
+	UART_StateMachine();
 }

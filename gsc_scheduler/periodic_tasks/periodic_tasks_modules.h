@@ -32,6 +32,10 @@
 //#include "MyApplication.h"
 //#include "MyLowLayerDriver.h"
 
+
+#include "source/GPIO_init.h"
+#include "app/UART_FSM.h"
+#include "app/UART_TX.h"
 #include "source/stdtypedef.h"
 #include "utilities/fsl_debug_console.h"
 

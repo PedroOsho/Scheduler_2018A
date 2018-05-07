@@ -73,18 +73,23 @@
 #define BOARD_TSI_ELECTRODE_1 9U
 #define BOARD_TSI_ELECTRODE_2 10U
 
-/* Board led color mapping */
-#define LOGIC_LED_ON 0U
-#define LOGIC_LED_OFF 1U
-#define BOARD_LED_RED_GPIO GPIOB
-#define BOARD_LED_RED_GPIO_PORT PORTB
-#define BOARD_LED_RED_GPIO_PIN 18U
-#define BOARD_LED_GREEN_GPIO GPIOB
-#define BOARD_LED_GREEN_GPIO_PORT PORTB
-#define BOARD_LED_GREEN_GPIO_PIN 19U
-#define BOARD_LED_BLUE_GPIO GPIOD
-#define BOARD_LED_BLUE_GPIO_PORT PORTD
-#define BOARD_LED_BLUE_GPIO_PIN 1U
+/* Board UART PIN mapping */
+#define Rx1_GPIO_	GPIOC
+#define Rx1_PORT_	PORTB
+#define	Rx1_PIN_	10u
+
+#define Rx2_GPIO_	GPIOC
+#define Rx2_PORT_	PORTB
+#define	Rx2_PIN_	11u
+
+#define Tx1_GPIO_	GPIOC
+#define Tx1_PORT_	PORTB
+#define	Tx1_PIN_	8u
+
+#define Tx2_GPIO_	GPIOC
+#define Tx2_PORT_	PORTB
+#define	Tx2_PIN_	9u
+
 
 #define LED_RED_INIT(output)                                                 \
     GPIO_WritePinOutput(BOARD_LED_RED_GPIO, BOARD_LED_RED_GPIO_PIN, output); \

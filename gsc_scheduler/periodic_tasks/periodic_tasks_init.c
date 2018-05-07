@@ -61,6 +61,8 @@ void periodic_tasks_init_SysDrvs(void){
  **************************************************************/
  void periodic_tasks_init_task_5tks(void)
  {
+	 init_GPIO_UART_in();
+	 init_GPIO_UART_out();
 
  }
  
