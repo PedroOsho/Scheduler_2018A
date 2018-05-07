@@ -32,10 +32,14 @@
 #define TRUE 1
 
 #define DataByte {0,0,1,1,0,0,1,1}
-#define DataParity {0,0,0,0,0,0,0,0,0,0}
+#define DataParity {1,1,1,0,0,0,1,0,0,1}
 
 #define SENDING 1
 #define WAITING 0
+
+#define INIT_ARRAY 0
+#define END_DATA_ARRAY 8
+#define END_PARITY_ARRAY 10
 /*******************************************************************************
  * Variables
  ******************************************************************************/
@@ -43,42 +47,62 @@ T_BIT	Send_Data[8] = DataByte;
 T_BIT	ParityTx[10] = DataParity;
 T_BIT	state = 0;
 T_UBYTE Bit_PositionTx = 0;
+T_UBYTE Parity_PositionTx = 0;
+T_UBYTE Ciclo_Base = 1;
+T_UBYTE Ciclo_Conteo = 1;
 /*******************************************************************************
  * Code
  ******************************************************************************/
 void sendMesaggeTx()
 {
-	if(state == WAITING)
+	if(Ciclo_Conteo >= Ciclo_Base)
 	{
-		GPIO_ClearPinsOutput(Tx1_GPIO, 1u << Tx1_PIN);
-		state=SENDING;
-	}
-	else
-	{
-	if(Bit_PositionTx < 8)
-	{
-		if(Send_Data[Bit_PositionTx] == TRUE)
+		if(state == WAITING)
 		{
-			GPIO_SetPinsOutput(Tx1_GPIO, 1u << Tx1_PIN);
+			GPIO_ClearPinsOutput(Tx1_GPIO, 1u << Tx1_PIN);
+			state=SENDING;
 		}
 		else
 		{
-			GPIO_ClearPinsOutput(Tx1_GPIO, 1u << Tx1_PIN);
+			if(Bit_PositionTx < END_DATA_ARRAY)
+			{
+				if(Send_Data[Bit_PositionTx] == TRUE)
+				{
+					GPIO_SetPinsOutput(Tx1_GPIO, 1u << Tx1_PIN);
+				}
+				else
+				{
+					GPIO_ClearPinsOutput(Tx1_GPIO, 1u << Tx1_PIN);
+				}
+				Bit_PositionTx++;
+			}
+			else
+			{
+				if(Parity_PositionTx<END_PARITY_ARRAY)
+				{
+					if(ParityTx[Parity_PositionTx] == TRUE)
+					{
+						GPIO_SetPinsOutput(Tx1_GPIO, 1u << Tx1_PIN);
+						Ciclo_Base=Ciclo_Base*2;
+					}
+					else
+					{
+						GPIO_ClearPinsOutput(Tx1_GPIO, 1u << Tx1_PIN);
+					}
+					Parity_PositionTx++;
+				}
+				else
+				{
+					Parity_PositionTx=INIT_ARRAY;
+				}
+				state=WAITING;
+				Bit_PositionTx=INIT_ARRAY;
+			}
 		}
-		Bit_PositionTx++;
+		Ciclo_Conteo=1;
 	}
 	else
 	{
-		if(ParityTx[0] == TRUE)
-		{
-			GPIO_SetPinsOutput(Tx1_GPIO, 1u << Tx1_PIN);
-		}
-		else
-		{
-			GPIO_ClearPinsOutput(Tx1_GPIO, 1u << Tx1_PIN);
-		}
-		state=WAITING;
-		Bit_PositionTx=0;
-	}
+		Ciclo_Conteo++;
 	}
 }

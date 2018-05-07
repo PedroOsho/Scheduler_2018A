@@ -34,6 +34,7 @@
 
 #define FALSE 0
 #define TRUE 1
+#define bit_limit 8
 /*******************************************************************************
  * Variables
  ******************************************************************************/
@@ -43,44 +44,61 @@ enum State_enum {
     CODIFY,
     NONE,
 };
-T_UBYTE bit_limit =8;
 T_UBYTE State = IDLE;
 T_BIT Recived_Data[8];
 T_UBYTE Bit_Position = 0;
 T_BIT	Parity;
+T_UBYTE Ciclo_Base_Rx = 1;
+T_UBYTE Ciclo_Conteo_Rx = 1;
+
 /*******************************************************************************
  * Code
  ******************************************************************************/
 void IDLE_state()
 {
-	if(GPIO_ReadPinInput(Rx1_GPIO, Rx1_PIN)==FALSE)
+	if(Ciclo_Conteo_Rx >= Ciclo_Base_Rx)
 	{
-		State=SAVE;
+		if(GPIO_ReadPinInput(Rx1_GPIO, Rx1_PIN)==FALSE)
+		{
+			State=SAVE;
+		}
+		else
+		{
+			State=IDLE;
+		}
+		PRINTF("el estado es: %d \n",State);
+		Ciclo_Conteo_Rx=1;
 	}
 	else
 	{
-		State=IDLE;
+		Ciclo_Conteo_Rx++;
 	}
-	PRINTF("el estado es: %d \n",State);
 }
 
 void SAVE_state()
 {
-	if(Bit_Position < bit_limit)
+	if(Ciclo_Conteo_Rx >= Ciclo_Base_Rx)
 	{
-		Recived_Data[Bit_Position] = GPIO_ReadPinInput(Rx1_GPIO, Rx1_PIN);
-		State=SAVE;
-		Bit_Position++;
-		PRINTF("%d \n",Recived_Data[Bit_Position-1]);
+		if(Bit_Position < bit_limit)
+		{
+			Recived_Data[Bit_Position] = GPIO_ReadPinInput(Rx1_GPIO, Rx1_PIN);
+			State=SAVE;
+			Bit_Position++;
+			PRINTF("%d \n",Recived_Data[Bit_Position-1]);
+		}
+		else
+		{
+			Parity = GPIO_ReadPinInput(Rx1_GPIO, Rx1_PIN);
+			Bit_Position=0;
+			PRINTF("%d \n",Parity);
+			State= CODIFY;
+			UART_StateMachine();
+		}
+		Ciclo_Conteo_Rx=1;
 	}
-
 	else
 	{
-		Parity = GPIO_ReadPinInput(Rx1_GPIO, Rx1_PIN);
-		Bit_Position=0;
-		PRINTF("%d \n",Parity);
-		State= IDLE;
-		//UART_StateMachine();
+		Ciclo_Conteo_Rx++;
 	}
 
 }
@@ -89,12 +107,12 @@ void CODIFY_state()
 {
 	if(Parity == TRUE)
 	{
-
+		Ciclo_Base_Rx=Ciclo_Base_Rx*2;
 	}
 	else
 	{
-
 	}
+	State=IDLE;
 }
 
 
