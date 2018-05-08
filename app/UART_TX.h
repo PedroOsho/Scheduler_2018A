@@ -9,5 +9,6 @@
 #define UART_TX_H_
 
 void sendMesaggeTx(void);
+void sincrinizacion(void);
 
 #endif /* UART_TX_H_ */

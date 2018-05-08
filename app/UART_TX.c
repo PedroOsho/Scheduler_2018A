@@ -106,3 +106,12 @@ void sendMesaggeTx()
 		Ciclo_Conteo++;
 	}
 }
+
+void sincrinizacion()
+{
+	T_UBYTE contador=0;
+	for(contador=0; contador>800 ;contador++)
+	{
+	}
+
+}

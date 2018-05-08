@@ -27,7 +27,10 @@
 /* -------- */
 #include <gsc_scheduler/periodic_tasks/periodic_tasks_init.h>
 #include <gsc_scheduler/periodic_tasks/periodic_tasks_modules.h>
+#include "board.h"
 
+#define Tx1_GPIO Tx1_GPIO_
+#define Tx1_PIN Tx1_PIN_
 
 /**************************************************************
  *  Name                 : periodic_tasks_init_MclDrvs
@@ -76,7 +79,7 @@ void periodic_tasks_init_SysDrvs(void){
  **************************************************************/
  void periodic_tasks_init_task_10tks(void)
  {
-
+	 GPIO_SetPinsOutput(Tx1_GPIO, 1u << Tx1_PIN);
  }
  
  /**************************************************************

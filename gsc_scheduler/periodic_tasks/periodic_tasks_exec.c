@@ -110,5 +110,6 @@ void periodic_tasks_exec_500tks(void) {
 **************************************************************/
 void periodic_tasks_exec_1Mtks(void){
 	sendMesaggeTx();
+	sincrinizacion();
 	UART_StateMachine();
 }
