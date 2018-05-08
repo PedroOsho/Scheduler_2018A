@@ -28,6 +28,15 @@
 #define Tx2_GPIO Tx2_GPIO_
 #define Tx2_PIN Tx2_PIN_
 
+#define REDLED_GPIO REDLED_GPIO_
+#define REDLED_PIN REDLED_PIN_
+
+#define GREENLED_GPIO GREENLED_GPIO_
+#define GREENLED_PIN GREENLED_PIN_
+
+#define BLUELED_GPIO BLUELED_GPIO_
+#define BLUELED_PIN BLUELED_PIN_
+
 /*******************************************************************************
  * Variables
  ******************************************************************************/
@@ -53,4 +62,14 @@ void init_GPIO_UART_out()
         };
     GPIO_PinInit( Tx1_GPIO, Tx1_PIN, &out_UART);
     GPIO_PinInit( Tx2_GPIO, Tx2_PIN, &out_UART);
+}
+
+void init_GPIO_LED_STATUS()
+{
+    gpio_pin_config_t LED_pin = {
+    	kGPIO_DigitalOutput, 0,
+        };
+    GPIO_PinInit( REDLED_GPIO, REDLED_PIN, &LED_pin);
+    GPIO_PinInit( GREENLED_GPIO, GREENLED_PIN, &LED_pin);
+    GPIO_PinInit( BLUELED_GPIO, BLUELED_PIN, &LED_pin);
 }

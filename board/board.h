@@ -74,6 +74,20 @@
 #define BOARD_TSI_ELECTRODE_2 10U
 
 /* Board UART PIN mapping */
+
+#define REDLED_GPIO_ GPIOB
+#define REDLED_PORT_ PORTB
+#define REDLED_PIN_ 18
+
+#define GREENLED_GPIO_ GPIOB
+#define GREENLED_PORT_ PORTB
+#define GREENLED_PIN_ 19
+
+#define BLUELED_GPIO_ GPIOD
+#define BLUELED_PORT_ PORTD
+#define BLUELED_PIN_ 1
+
+
 #define Rx1_GPIO_	GPIOC
 #define Rx1_PORT_	PORTB
 #define	Rx1_PIN_	10u

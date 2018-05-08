@@ -17,6 +17,15 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+#define REDLED_GPIO REDLED_GPIO_
+#define REDLED_PIN REDLED_PIN_
+
+#define GREENLED_GPIO GREENLED_GPIO_
+#define GREENLED_PIN GREENLED_PIN_
+
+#define BLUELED_GPIO BLUELED_GPIO_
+#define BLUELED_PIN BLUELED_PIN_
+
 #define Rx1_GPIO Rx1_GPIO_
 #define Rx1_PIN Rx1_PIN_
 
@@ -54,8 +63,37 @@ T_UBYTE Ciclo_Conteo_Rx = 1;
 /*******************************************************************************
  * Code
  ******************************************************************************/
+void IDLE_status()
+{
+	GPIO_ClearPinsOutput(REDLED_GPIO, 1u << REDLED_PIN);
+	GPIO_ClearPinsOutput(GREENLED_GPIO, 1u << GREENLED_PIN);
+	GPIO_ClearPinsOutput(BLUELED_GPIO, 1u << BLUELED_PIN);
+}
+void SAVE_status()
+{
+	GPIO_ClearPinsOutput(REDLED_GPIO, 1u << REDLED_PIN);
+	GPIO_SetPinsOutput(GREENLED_GPIO, 1u << GREENLED_PIN);
+	GPIO_ClearPinsOutput(BLUELED_GPIO, 1u << BLUELED_PIN);
+
+}
+void CODIFY_status()
+{
+	GPIO_ClearPinsOutput(REDLED_GPIO, 1u << REDLED_PIN);
+	GPIO_ClearPinsOutput(GREENLED_GPIO, 1u << GREENLED_PIN);
+	GPIO_SetPinsOutput(BLUELED_GPIO, 1u << BLUELED_PIN);
+}
+void ERROR_status()
+{
+	GPIO_SetPinsOutput(REDLED_GPIO, 1u << REDLED_PIN);
+	GPIO_ClearPinsOutput(GREENLED_GPIO, 1u << GREENLED_PIN);
+	GPIO_ClearPinsOutput(BLUELED_GPIO, 1u << BLUELED_PIN);
+}
+
+
+
 void IDLE_state()
 {
+	IDLE_status();
 	if(Ciclo_Conteo_Rx >= Ciclo_Base_Rx)
 	{
 		if(GPIO_ReadPinInput(Rx1_GPIO, Rx1_PIN)==FALSE)
@@ -84,6 +122,7 @@ void SAVE_state()
 			Recived_Data[Bit_Position] = GPIO_ReadPinInput(Rx1_GPIO, Rx1_PIN);
 			State=SAVE;
 			Bit_Position++;
+			SAVE_status();
 			PRINTF("%d \n",Recived_Data[Bit_Position-1]);
 		}
 		else
@@ -107,6 +146,7 @@ void CODIFY_state()
 {
 	if(Parity == TRUE)
 	{
+		CODIFY_status();
 		Ciclo_Base_Rx=Ciclo_Base_Rx*2;
 	}
 	else
@@ -133,6 +173,7 @@ void UART_StateMachine()
 		break;
 
 	default:
+		ERROR_status();
 		break;
 
 	}

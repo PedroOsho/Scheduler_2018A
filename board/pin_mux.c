@@ -51,6 +51,9 @@ PinsProfile:
 #define PIN10_IDX					10u		/*!< Pin number for pin 10 in a port */
 #define PIN11_IDX					11u		/*!< Pin number for pin 11 in a port */
 
+#define PIN18_IDX					18u		/*!< Pin number for pin 18 in a port */
+#define PIN19_IDX					19u		/*!< Pin number for pin 19 in a port */
+
 #define SOPT5_UART0RXSRC_UART_RX	0x00u   /*!< UART0 receive data source select: UART0_RX pin */
 #define SOPT5_UART0TXSRC_UART_TX	0x00u   /*!< UART0 transmit data source select: UART0_TX pin */
 
@@ -75,6 +78,7 @@ void BOARD_InitPins(void) {
   CLOCK_EnableClock(kCLOCK_PortA);						/* Port A Clock Gate Control: Clock enabled */
   CLOCK_EnableClock(kCLOCK_PortB);						/* Port B Clock Gate Control: Clock enabled */
   CLOCK_EnableClock(kCLOCK_PortC);						/* Port E Clock Gate Control: Clock enabled */
+  CLOCK_EnableClock(kCLOCK_PortD);						/* Port E Clock Gate Control: Clock enabled */
 
   PORT_SetPinMux(PORTA, PIN1_IDX, kPORT_MuxAlt2);				/* PORTA1 (pin 27) is configured as UART0_RX */
   PORT_SetPinMux(PORTA, PIN2_IDX, kPORT_MuxAlt2);				/* PORTA2 (pin 28) is configured as UART0_TX */
@@ -84,6 +88,9 @@ void BOARD_InitPins(void) {
 
   PORT_SetPinMux(PORTC, PIN10_IDX, kPORT_MuxAsGpio);				/* PORTB11 (pin .) is configured as Digital in */
   PORT_SetPinMux(PORTC, PIN11_IDX, kPORT_MuxAsGpio);				/* PORTB12 (pin .) is configured as Digital in */
+
+  PORT_SetPinMux(PORTB, PIN18_IDX, kPORT_MuxAsGpio);				/* PORTB11 (pin .) is configured as Digital in */
+  PORT_SetPinMux(PORTB, PIN19_IDX, kPORT_MuxAsGpio);				/* PORTB12 (pin .) is configured as Digital in */
 
   SIM->SOPT5 = ((SIM->SOPT5 &
     (~(SIM_SOPT5_UART0TXSRC_MASK | SIM_SOPT5_UART0RXSRC_MASK)))	/* Mask bits to zero which are setting */

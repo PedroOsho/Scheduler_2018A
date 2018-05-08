@@ -12,5 +12,5 @@
  ******************************************************************************/
 void init_GPIO_UART_in(void);
 void init_GPIO_UART_out(void);
-
+void init_GPIO_LED_STATUS(void);
 #endif /* GPIO_INIT_H_ */

@@ -66,6 +66,7 @@ void periodic_tasks_init_SysDrvs(void){
  {
 	 init_GPIO_UART_in();
 	 init_GPIO_UART_out();
+	 init_GPIO_LED_STATUS();
 
  }
  
