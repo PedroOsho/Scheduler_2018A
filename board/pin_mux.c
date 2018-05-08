@@ -83,14 +83,15 @@ void BOARD_InitPins(void) {
   PORT_SetPinMux(PORTA, PIN1_IDX, kPORT_MuxAlt2);				/* PORTA1 (pin 27) is configured as UART0_RX */
   PORT_SetPinMux(PORTA, PIN2_IDX, kPORT_MuxAlt2);				/* PORTA2 (pin 28) is configured as UART0_TX */
 
-  PORT_SetPinMux(PORTC, PIN8_IDX, kPORT_MuxAsGpio);				/* PORTB8 (pin .) is configured as Digital out */
+  PORT_SetPinMux(PORTC, PIN8_IDX, kPORT_MuxAsGpio);				/* PORTB8 (pin .) is configured as Digital out TX*/
   PORT_SetPinMux(PORTC, PIN9_IDX, kPORT_MuxAsGpio);				/* PORTB9 (pin .) is configured as Digital out*/
 
-  PORT_SetPinMux(PORTC, PIN10_IDX, kPORT_MuxAsGpio);				/* PORTB11 (pin .) is configured as Digital in */
-  PORT_SetPinMux(PORTC, PIN11_IDX, kPORT_MuxAsGpio);				/* PORTB12 (pin .) is configured as Digital in */
+  PORT_SetPinMux(PORTC, PIN10_IDX, kPORT_MuxAsGpio);				/* PORTB10 (pin .) is configured as Digital in */
+  PORT_SetPinMux(PORTC, PIN11_IDX, kPORT_MuxAsGpio);				/* PORTB11 (pin .) is configured as Digital in RX*/
 
   PORT_SetPinMux(PORTB, PIN18_IDX, kPORT_MuxAsGpio);				/* PORTB11 (pin .) is configured as Digital in */
   PORT_SetPinMux(PORTB, PIN19_IDX, kPORT_MuxAsGpio);				/* PORTB12 (pin .) is configured as Digital in */
+  PORT_SetPinMux(PORTD, PIN1_IDX, kPORT_MuxAsGpio);				/* PORTB12 (pin .) is configured as Digital in */
 
   SIM->SOPT5 = ((SIM->SOPT5 &
     (~(SIM_SOPT5_UART0TXSRC_MASK | SIM_SOPT5_UART0RXSRC_MASK)))	/* Mask bits to zero which are setting */

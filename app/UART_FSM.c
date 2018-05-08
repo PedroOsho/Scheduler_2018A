@@ -65,28 +65,28 @@ T_UBYTE Ciclo_Conteo_Rx = 1;
  ******************************************************************************/
 void IDLE_status()
 {
-	GPIO_ClearPinsOutput(REDLED_GPIO, 1u << REDLED_PIN);
-	GPIO_ClearPinsOutput(GREENLED_GPIO, 1u << GREENLED_PIN);
-	GPIO_ClearPinsOutput(BLUELED_GPIO, 1u << BLUELED_PIN);
+	GPIO_SetPinsOutput(REDLED_GPIO, 1u << REDLED_PIN);
+	GPIO_SetPinsOutput(GREENLED_GPIO, 1u << GREENLED_PIN);
+	GPIO_SetPinsOutput(BLUELED_GPIO, 1u << BLUELED_PIN);
 }
 void SAVE_status()
 {
-	GPIO_ClearPinsOutput(REDLED_GPIO, 1u << REDLED_PIN);
-	GPIO_SetPinsOutput(GREENLED_GPIO, 1u << GREENLED_PIN);
-	GPIO_ClearPinsOutput(BLUELED_GPIO, 1u << BLUELED_PIN);
+	GPIO_SetPinsOutput(REDLED_GPIO, 1u << REDLED_PIN);
+	GPIO_ClearPinsOutput(GREENLED_GPIO, 1u << GREENLED_PIN);
+	GPIO_SetPinsOutput(BLUELED_GPIO, 1u << BLUELED_PIN);
 
 }
 void CODIFY_status()
 {
-	GPIO_ClearPinsOutput(REDLED_GPIO, 1u << REDLED_PIN);
-	GPIO_ClearPinsOutput(GREENLED_GPIO, 1u << GREENLED_PIN);
-	GPIO_SetPinsOutput(BLUELED_GPIO, 1u << BLUELED_PIN);
+	GPIO_SetPinsOutput(REDLED_GPIO, 1u << REDLED_PIN);
+	GPIO_SetPinsOutput(GREENLED_GPIO, 1u << GREENLED_PIN);
+	GPIO_ClearPinsOutput(BLUELED_GPIO, 1u << BLUELED_PIN);
 }
 void ERROR_status()
 {
-	GPIO_SetPinsOutput(REDLED_GPIO, 1u << REDLED_PIN);
-	GPIO_ClearPinsOutput(GREENLED_GPIO, 1u << GREENLED_PIN);
-	GPIO_ClearPinsOutput(BLUELED_GPIO, 1u << BLUELED_PIN);
+	GPIO_ClearPinsOutput(REDLED_GPIO, 1u << REDLED_PIN);
+	GPIO_SetPinsOutput(GREENLED_GPIO, 1u << GREENLED_PIN);
+	GPIO_SetPinsOutput(BLUELED_GPIO, 1u << BLUELED_PIN);
 }
 
 
